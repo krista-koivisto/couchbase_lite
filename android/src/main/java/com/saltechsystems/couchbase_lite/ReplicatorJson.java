@@ -1,6 +1,8 @@
 package com.saltechsystems.couchbase_lite;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.couchbase.lite.BasicAuthenticator;
