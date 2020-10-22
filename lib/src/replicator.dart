@@ -6,6 +6,10 @@ class Replicator {
   Replicator(this.config) {
     //this.config._isLocked = true;
     _nativeIsReady = _jsonChannel.invokeMethod('storeReplicator', this);
+    _replicationStream.listen((event) {
+      print("I've got news for you!");
+      print(event);
+    });
   }
 
   static const MethodChannel _methodChannel =

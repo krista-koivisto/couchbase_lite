@@ -82,7 +82,7 @@ public class CouchbaseLitePlugin implements CBManagerDelegate {
     queryEventChannel.setStreamHandler(instance.mQueryEventListener);
 
     final EventChannel databaseEventChannel = new EventChannel(registrar.messenger(),
-        "com.saltechsystems.couchbase_lite/databaseEventChannel");
+            "com.saltechsystems.couchbase_lite/databaseEventChannel");
     databaseEventChannel.setStreamHandler(instance.mDatabaseEventListener);
   }
 
@@ -434,29 +434,29 @@ public class CouchbaseLitePlugin implements CBManagerDelegate {
 
           if (mCBManager.getDatabaseListenerToken(dbname) == null) {
             ListenerToken token = database.addChangeListener(AsyncTask.THREAD_POOL_EXECUTOR,
-              new DatabaseChangeListener() {
-                @Override
-                public void changed(@NonNull DatabaseChange change) {
+                    new DatabaseChangeListener() {
+                      @Override
+                      public void changed(@NonNull DatabaseChange change) {
 
-                  final HashMap<String, Object> map = new HashMap<>();
-                  map.put("type", "DatabaseChange");
-                  map.put("database", change.getDatabase().getName());
-                  map.put("documentIDs", change.getDocumentIDs());
+                        final HashMap<String, Object> map = new HashMap<>();
+                        map.put("type", "DatabaseChange");
+                        map.put("database", change.getDatabase().getName());
+                        map.put("documentIDs", change.getDocumentIDs());
 
-                  new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                      final EventChannel.EventSink eventSink = mDatabaseEventListener.mEventSink;
-                      if (eventSink != null) {
-                        eventSink.success(map);
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                          @Override
+                          public void run() {
+                            final EventChannel.EventSink eventSink = mDatabaseEventListener.mEventSink;
+                            if (eventSink != null) {
+                              eventSink.success(map);
+                            }
+                          }
+                        });
                       }
-                    }
-                  });
-                }
-              });
+                    });
 
-              mCBManager.addDatabaseListenerToken(dbname, token);
-              result.success(null);
+            mCBManager.addDatabaseListenerToken(dbname, token);
+            result.success(null);
           }
 
 
@@ -465,7 +465,7 @@ public class CouchbaseLitePlugin implements CBManagerDelegate {
         case ("removeChangeListener"):
           mCBManager.removeDatabaseListenerToken(dbname);
           result.success(null);
-        break;
+          break;
         default:
           result.notImplemented();
       }
